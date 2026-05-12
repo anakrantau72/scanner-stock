@@ -1,70 +1,163 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-  <base target="_top">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-  <!-- Library Scanner Kamera -->
-  <script src="https://unpkg.com/html5-qrcode"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  
-  <style>
-    :root { --primary: #2196F3; --success: #4CAF50; --bg: #f4f6f9; }
-    body { font-family: 'Segoe UI', Arial; background: var(--bg); margin:0; padding:10px; }
-    .header { background: var(--primary); color:white; padding:20px; border-radius:15px; margin-bottom:20px; text-align:center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-    .box { background:white; padding:20px; border-radius:15px; margin-bottom:15px; box-shadow:0 2px 10px rgba(0,0,0,0.05); }
-    
-    /* Tombol & Input Besar untuk HP */
-    input { width:100%; padding:15px; margin:10px 0; border:1px solid #ddd; border-radius:10px; box-sizing:border-box; font-size:16px; }
-    button { width:100%; background: var(--primary); color:white; border:none; padding:15px; border-radius:10px; font-weight:bold; font-size:16px; cursor:pointer; transition: 0.3s; }
-    button:active { transform: scale(0.98); opacity: 0.8; }
-    .btn-alt { background: #6c757d; margin-top: 5px; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    /* CSS Tambahan untuk Icon Kamera di dalam Input */
-    .barcode-container { position: relative; width: 100%; }
-    #barcode { padding-right: 50px; } /* Beri ruang untuk icon */
-    .cam-icon { 
-      position: absolute; 
-      right: 15px; 
-      top: 50%; 
-      transform: translateY(-50%); 
-      cursor: pointer; 
-      font-size: 24px;
-      z-index: 10;
-    }
+<title>Frestive Inventory</title>
 
-    /* Navigasi Tab */
-    .nav-tabs { display: flex; gap: 10px; margin-bottom: 15px; }
-    .nav-tabs button { flex: 1; padding: 10px; font-size: 14px; background: white; color: var(--primary); border: 1px solid var(--primary); }
-    .nav-tabs button.active { background: var(--primary); color: white; }
+<script src="https://unpkg.com/html5-qrcode"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    /* Scanner UI */
-    #reader { width: 100%; border-radius: 12px; overflow: hidden; border: 2px solid var(--primary); display: none; margin-bottom: 15px; }
-    table { width:100%; border-collapse:collapse; font-size: 14px; }
-    th, td { border:1px solid #ddd; padding:12px; text-align:left; }
-    th { background: var(--primary); color:white; }
-    
-    #appPage, #inputSection, #masterSection { display:none; }
-  </style>
+<style>
+:root{
+  --primary:#2196F3;
+  --success:#4CAF50;
+  --bg:#f4f6f9;
+}
+
+body{
+  font-family:'Segoe UI',Arial;
+  background:var(--bg);
+  margin:0;
+  padding:10px;
+}
+
+.header{
+  background:var(--primary);
+  color:white;
+  padding:20px;
+  border-radius:15px;
+  margin-bottom:20px;
+  text-align:center;
+}
+
+.box{
+  background:white;
+  padding:20px;
+  border-radius:15px;
+  margin-bottom:15px;
+}
+
+input{
+  width:100%;
+  padding:15px;
+  margin:10px 0;
+  border:1px solid #ddd;
+  border-radius:10px;
+  box-sizing:border-box;
+  font-size:16px;
+}
+
+button{
+  width:100%;
+  background:var(--primary);
+  color:white;
+  border:none;
+  padding:15px;
+  border-radius:10px;
+  font-weight:bold;
+  font-size:16px;
+  cursor:pointer;
+}
+
+.btn-alt{
+  background:#6c757d;
+  margin-top:5px;
+}
+
+.barcode-container{
+  position:relative;
+}
+
+#barcode{
+  padding-right:50px;
+}
+
+.cam-icon{
+  position:absolute;
+  right:15px;
+  top:50%;
+  transform:translateY(-50%);
+  cursor:pointer;
+  font-size:24px;
+}
+
+.nav-tabs{
+  display:flex;
+  gap:10px;
+  margin-bottom:15px;
+}
+
+.nav-tabs button{
+  flex:1;
+  padding:10px;
+  font-size:14px;
+  background:white;
+  color:var(--primary);
+  border:1px solid var(--primary);
+}
+
+.nav-tabs button.active{
+  background:var(--primary);
+  color:white;
+}
+
+#reader{
+  width:100%;
+  border-radius:12px;
+  overflow:hidden;
+  border:2px solid var(--primary);
+  display:none;
+  margin-bottom:15px;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:14px;
+}
+
+th,td{
+  border:1px solid #ddd;
+  padding:12px;
+  text-align:left;
+}
+
+th{
+  background:var(--primary);
+  color:white;
+}
+
+#appPage,
+#masterSection{
+  display:none;
+}
+</style>
 </head>
 
 <body>
 
-<!-- HALAMAN LOGIN -->
 <div id="loginPage">
-  <div class="header"><h1>Frestive Inventory</h1><p>Silahkan Login</p></div>
+  <div class="header">
+    <h1>Frestive Inventory</h1>
+    <p>Silahkan Login</p>
+  </div>
+
   <div class="box">
     <input type="text" id="namaUser" placeholder="Nama Penginput">
     <input type="text" id="lokasi" placeholder="No Lokasi">
-    <button onclick="loginApp()">Login</button>
+    <button onclick="loginApp()">LOGIN</button>
   </div>
 </div>
 
-<!-- HALAMAN APLIKASI UTAMA -->
 <div id="appPage">
+
   <div class="header">
-    <h2 id="showUser" style="margin:0"></h2>
+    <h2 id="showUser"></h2>
     <small id="showLokasi"></small>
-    <button onclick="logoutApp()" class="btn-alt" style="width:auto; padding:5px 15px">Logout</button>
+    <br><br>
+    <button onclick="logoutApp()" class="btn-alt">Logout</button>
   </div>
 
   <div class="nav-tabs">
@@ -72,34 +165,39 @@
     <button id="tabMas" onclick="switchTab('master')">Master Item</button>
   </div>
 
-  <!-- SEKSI SCAN & INPUT -->
-  <div id="inputSection" style="display:block">
+  <div id="inputSection">
+
     <div class="box">
-      <h3>Scan/Input Barcode</h3>
-      
-      <!-- Kontainer Scanner Kamera (Muncul saat icon diklik) -->
+
+      <h3>Scan / Input Barcode</h3>
+
       <div id="reader"></div>
 
-      <!-- Input Barcode dengan Icon -->
       <div class="barcode-container">
-        <input type="text" id="barcode" placeholder="Barcode" onchange="cariBarang()">
+        <input type="text" id="barcode" placeholder="Barcode">
         <span class="cam-icon" onclick="startScanner()">📷</span>
       </div>
 
-      <input type="text" id="namaBarang" placeholder="Nama Barang (Otomatis)" readonly style="background:#eee">
-      <input type="number" id="qty" placeholder="Masukkan Jumlah (Qty)">
-      <button onclick="simpan()" style="background:var(--success)">SIMPAN</button>
+      <input type="text" id="namaBarang" placeholder="Nama Barang" readonly style="background:#eee">
+      <input type="number" id="qty" placeholder="Qty">
+
+      <button onclick="simpan()" style="background:var(--success)">
+        SIMPAN
+      </button>
+
     </div>
   </div>
 
-  <!-- SEKSI DAFTAR MASTER -->
   <div id="masterSection">
+
     <div class="box">
-      <h3>Pencarian Barang</h3>
-      <input type="text" id="searchInput" placeholder="Cari Barcode atau Nama Barang..." onkeyup="filterMaster()">
+      <input type="text" id="searchInput"
+             placeholder="Cari Barang..."
+             onkeyup="filterMaster()">
     </div>
-    
+
     <div class="box" style="overflow-x:auto">
+
       <table>
         <thead>
           <tr>
@@ -108,201 +206,294 @@
             <th>SOH</th>
           </tr>
         </thead>
+
         <tbody id="masterBody"></tbody>
+
       </table>
+
     </div>
   </div>
+
 </div>
 
 <script>
+
+const API_URL = "https://script.google.com/macros/s/AKfycbyLaSUtKO969XJHOjHxiPa2eK2dMkf97vOdIfxpm6FTo4jFmlZeJk2m0TUGHWYZS9pe/exec";
+
 let html5QrCode;
 let masterDataCache = [];
 
-function switchTab(t) {
-  document.getElementById('inputSection').style.display = t === 'input' ? 'block' : 'none';
-  document.getElementById('masterSection').style.display = t === 'master' ? 'block' : 'none';
-  document.getElementById('tabIn').classList.toggle('active', t === 'input');
-  document.getElementById('tabMas').classList.toggle('active', t === 'master');
-  
-  stopScanner(); // Matikan kamera setiap pindah tab
-  if(t === 'master') loadMaster();
-}
-
-async function startScanner() {
-  const readerDiv = document.getElementById('reader');
-  
-  // 1. Bersihkan instance scanner lama jika masih menggantung
-  if (html5QrCode && html5QrCode.isScanning) {
-    await html5QrCode.stop().catch(() => {});
-    await html5QrCode.clear();
-  }
-
-  readerDiv.style.display = 'block';
-
-  // 2. Buat instance baru
-  html5QrCode = new Html5Qrcode("reader");
-  
-  const config = { 
-    fps: 10, 
-    qrbox: { width: 250, height: 150 }, // Ukuran kotak fokus
-    aspectRatio: 1.0 
-  };
-
-  // 3. Gunakan Promise/Await untuk memastikan izin kamera diminta dengan benar
-  try {
-    await html5QrCode.start(
-      { facingMode: "environment" }, // Paksa kamera belakang
-      config, 
-      (text) => {
-        // Jika Berhasil Scan
-        document.getElementById('barcode').value = text;
-        cariBarang();
-        stopScanner();
-      }
-    );
-  } catch (err) {
-    console.error("Kamera Error:", err);
-    // Pesan error lebih detail agar kita tahu penyebabnya
-    alert("Kamera Error: " + err + "\n\nTips: Pastikan buka di Chrome/Safari dan gunakan link yang diakhiri /exec");
-    readerDiv.style.display = 'none';
-  }
-}
-
-function stopScanner() {
-  const readerDiv = document.getElementById('reader');
-  if (html5QrCode) {
-    html5QrCode.stop().then(() => {
-      html5QrCode.clear(); // Bersihkan elemen dari DOM
-      readerDiv.style.display = 'none';
-    }).catch(err => {
-      console.log("Stop Error:", err);
-      readerDiv.style.display = 'none';
-    });
-  }
-}
-
-// Logika sisa (Login, Simpan, LoadMaster, Filter) tetap sama seperti sebelumnya
 function loginApp(){
+
   const u = document.getElementById('namaUser').value;
   const l = document.getElementById('lokasi').value;
-  if(!u || !l) return alert('Isi Nama & Lokasi!');
+
+  if(!u || !l){
+    alert("Isi Nama & Lokasi");
+    return;
+  }
+
   localStorage.setItem('namaUser', u);
   localStorage.setItem('lokasi', l);
+
   showApp();
 }
 
 function showApp(){
+
   const u = localStorage.getItem('namaUser');
   const l = localStorage.getItem('lokasi');
+
   if(!u) return;
+
   document.getElementById('loginPage').style.display = 'none';
   document.getElementById('appPage').style.display = 'block';
+
   document.getElementById('showUser').innerText = u;
-  document.getElementById('showLokasi').innerText = "Lokasi: " + l;
+  document.getElementById('showLokasi').innerText = "Lokasi : " + l;
+
   loadMaster();
 }
 
-function cariBarang(){
-  const bc = document.getElementById('barcode').value;
-  if(!bc) return;
-  google.script.run.withSuccessHandler(d => {
-    document.getElementById('namaBarang').value = d ? d.nama : 'Tidak ditemukan';
-  }).getBarang(bc);
+function logoutApp(){
+  localStorage.clear();
+  location.reload();
 }
 
-function simpan() {
+function switchTab(tab){
+
+  document.getElementById('inputSection').style.display =
+    tab === 'input' ? 'block' : 'none';
+
+  document.getElementById('masterSection').style.display =
+    tab === 'master' ? 'block' : 'none';
+
+  document.getElementById('tabIn').classList.toggle('active', tab === 'input');
+  document.getElementById('tabMas').classList.toggle('active', tab === 'master');
+
+  stopScanner();
+
+  if(tab === 'master'){
+    loadMaster();
+  }
+}
+
+async function startScanner(){
+
+  const readerDiv = document.getElementById('reader');
+
+  if(html5QrCode){
+    try{
+      await html5QrCode.stop();
+    }catch(e){}
+  }
+
+  readerDiv.style.display = 'block';
+
+  html5QrCode = new Html5Qrcode("reader");
+
+  try{
+
+    await html5QrCode.start(
+      { facingMode: "environment" },
+      {
+        fps:10,
+        qrbox:{ width:250, height:150 }
+      },
+
+      async(decodedText)=>{
+
+        document.getElementById('barcode').value = decodedText;
+
+        stopScanner();
+
+        cariBarang();
+      }
+
+    );
+
+  }catch(err){
+
+    console.log(err);
+
+    Swal.fire({
+      icon:'error',
+      title:'Kamera Gagal',
+      text:'Pastikan pakai Chrome Android dan izinkan kamera'
+    });
+
+    readerDiv.style.display = 'none';
+  }
+}
+
+async function stopScanner(){
+
+  const readerDiv = document.getElementById('reader');
+
+  if(html5QrCode){
+
+    try{
+      await html5QrCode.stop();
+      await html5QrCode.clear();
+    }catch(e){}
+
+    readerDiv.style.display = 'none';
+  }
+}
+
+async function cariBarang(){
+
   const bc = document.getElementById('barcode').value;
+
+  if(!bc) return;
+
+  try{
+
+    const res = await fetch(API_URL + "?action=getBarang&barcode=" + bc);
+
+    const data = await res.json();
+
+    document.getElementById('namaBarang').value =
+      data.nama || 'Tidak ditemukan';
+
+  }catch(err){
+
+    console.log(err);
+  }
+}
+
+async function simpan(){
+
+  const bc = document.getElementById('barcode').value;
+  const namaBarang = document.getElementById('namaBarang').value;
   const qty = document.getElementById('qty').value;
 
-  // Ganti alert validasi
-  if (!bc || !qty) {
+  if(!bc || !qty){
+
     Swal.fire({
-      icon: 'warning',
-      title: 'Oops...',
-      text: 'Barcode dan Qty harus diisi!',
-      confirmButtonColor: '#7066e0'
+      icon:'warning',
+      title:'Oops',
+      text:'Barcode & Qty wajib diisi'
     });
+
     return;
   }
 
-  const data = {
-    namaUser: localStorage.getItem('namaUser'),
-    lokasi: localStorage.getItem('lokasi'),
-    barcode: bc,
-    namaBarang: document.getElementById('namaBarang').value,
-    qty: qty
-  };
-
-  // Tampilkan loading (opsional tapi bagus untuk UX)
   Swal.fire({
-    title: 'Menyimpan...',
-    allowOutsideClick: false,
-    didOpen: () => {
+    title:'Menyimpan...',
+    allowOutsideClick:false,
+    didOpen:()=>{
       Swal.showLoading();
     }
   });
 
-  google.script.run.withSuccessHandler(res => {
-    // Ganti alert berhasil (Sesuai Gambar Kedua)
-    Swal.fire({
-      icon: 'success',
-      title: 'Berhasil',
-      text: 'Data Barang Disimpan!', // atau gunakan 'res' jika ingin pesan dari server
-      confirmButtonText: 'OK',
-      confirmButtonColor: '#7066e0',
-      iconColor: '#a5dc86'
+  try{
+
+    const response = await fetch(API_URL,{
+
+      method:'POST',
+
+      body:JSON.stringify({
+
+        namaUser:localStorage.getItem('namaUser'),
+        lokasi:localStorage.getItem('lokasi'),
+        barcode:bc,
+        namaBarang:namaBarang,
+        qty:qty
+
+      })
+
     });
 
-    // Reset Form
+    const result = await response.json();
+
+    Swal.fire({
+      icon:'success',
+      title:'Berhasil',
+      text:'Data berhasil disimpan'
+    });
+
     document.getElementById('barcode').value = '';
     document.getElementById('namaBarang').value = '';
     document.getElementById('qty').value = '';
-    
-  }).simpanTransaksi(data);
+
+  }catch(err){
+
+    Swal.fire({
+      icon:'error',
+      title:'Gagal',
+      text:'Tidak bisa menyimpan data'
+    });
+
+    console.log(err);
+  }
 }
 
-function loadMaster(){
-  google.script.run
-    .withFailureHandler(function(err) {
-       console.log("Detail Error Server:", err.message);
-       alert("Terjadi kesalahan di server: " + err.message);
-    })
-    .withSuccessHandler(function(data){
-       masterDataCache = data;
-       renderTable(data);
-    })
-    .getMasterData();
+async function loadMaster(){
+
+  try{
+
+    const res = await fetch(API_URL + "?action=getMaster");
+
+    const data = await res.json();
+
+    masterDataCache = data;
+
+    renderTable(data);
+
+  }catch(err){
+
+    console.log(err);
+  }
 }
 
-function renderTable(data) {
+function renderTable(data){
+
   let html = '';
-  if (!data || data.length === 0) {
-    html = '<tr><td colspan="4" style="text-align:center">Data tidak ditemukan</td></tr>';
-  } else {
-    data.forEach(function(row){
-      // row[0] = Barcode, row[1] = Nama, row[2] = SOH, row[3] = Satuan
-      html += `<tr>
-                <td>${row[0]}</td>
-                <td>${row[1]}</td>
-                <td>${row[2]} ${row[3]}</td> 
-               </tr>`;
+
+  if(data.length === 0){
+
+    html = `
+      <tr>
+        <td colspan="3" style="text-align:center">
+          Data kosong
+        </td>
+      </tr>
+    `;
+
+  }else{
+
+    data.forEach(row=>{
+
+      html += `
+        <tr>
+          <td>${row[0]}</td>
+          <td>${row[1]}</td>
+          <td>${row[2]}</td>
+        </tr>
+      `;
     });
   }
+
   document.getElementById('masterBody').innerHTML = html;
 }
 
-function filterMaster() {
-  const keyword = document.getElementById('searchInput').value.toLowerCase();
-  const filteredData = masterDataCache.filter(row => {
-    return row[0].toString().toLowerCase().includes(keyword) || 
-           row[1].toString().toLowerCase().includes(keyword);
-  });
-  renderTable(filteredData);
+function filterMaster(){
+
+  const keyword =
+    document.getElementById('searchInput').value.toLowerCase();
+
+  const filtered = masterDataCache.filter(row=>
+    row[0].toString().toLowerCase().includes(keyword) ||
+    row[1].toString().toLowerCase().includes(keyword)
+  );
+
+  renderTable(filtered);
 }
 
-function logoutApp(){ localStorage.clear(); location.reload(); }
-
 showApp();
+
 </script>
+
 </body>
 </html>
