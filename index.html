@@ -447,34 +447,20 @@ async function loadMaster(){
   }
 }
 
-function renderTable(data){
-
+function renderTable(data) {
   let html = '';
-
-  if(data.length === 0){
-
-    html = `
-      <tr>
-        <td colspan="3" style="text-align:center">
-          Data kosong
-        </td>
-      </tr>
-    `;
-
-  }else{
-
-    data.forEach(row=>{
-
-      html += `
-        <tr>
-          <td>${row[0]}</td>
-          <td>${row[1]}</td>
-          <td>${row[2]}</td>
-        </tr>
-      `;
+  if (!data || data.length === 0) {
+    html = '<tr><td colspan="4" style="text-align:center">Data tidak ditemukan</td></tr>';
+  } else {
+    data.forEach(function(row){
+      // row[0] = Barcode, row[1] = Nama, row[2] = SOH, row[3] = Satuan
+      html += `<tr>
+                <td>${row[0]}</td>
+                <td>${row[1]}</td>
+                <td>${row[2]} ${row[3]}</td> 
+               </tr>`;
     });
   }
-
   document.getElementById('masterBody').innerHTML = html;
 }
 
