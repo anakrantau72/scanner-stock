@@ -236,33 +236,8 @@ function loginApp(){
   localStorage.setItem('namaUser', u);
   localStorage.setItem('lokasi', l);
 
-  // Simpan di browser
-  localStorage.setItem('namaUser', u);
-  localStorage.setItem('lokasi', l);
-
-  // --- TAMBAHAN: Kirim Log Login ke Google Sheets ---
-  fetch(url, {
-    method: 'POST',
-    body: JSON.stringify({
-      action: 'logLogin',
-      data: {
-        namaUser: u,
-        lokasi: l
-      }
-    })
-  })
-  .then(res => res.json())
-  .then(response => {
-    console.log("Log Login Berhasil");
-    showApp(); // Pindah ke halaman utama setelah log terkirim
-  })
-  .catch(err => {
-    console.error("Gagal mencatat log:", err);
-    // Tetap masuk ke aplikasi meskipun log gagal (opsional)
-    showApp(); 
-  });
+  showApp();
 }
-
 
 function showApp(){
 
